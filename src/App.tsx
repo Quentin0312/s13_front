@@ -1,27 +1,23 @@
-import type { Component } from 'solid-js';
+import { Show, createEffect, createSignal } from "solid-js";
 
-import logo from './logo.svg';
-import styles from './App.module.css';
+import CommentInput from "./component/CommentInput";
+import IaPrediction from "./component/IaPrediction";
 
-const App: Component = () => {
+export const [comment, setComment] = createSignal("");
+export const [iaPrediction, setIaPrediction] = createSignal<string>();
+
+export default function () {
+  createEffect(() => {
+    console.log("effect", comment());
+
+    if (comment() != "") {
+      // requete api
+    }
+  });
   return (
-    <div class={styles.App}>
-      <header class={styles.header}>
-        <img src={logo} class={styles.logo} alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          class={styles.link}
-          href="https://github.com/solidjs/solid"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn Solid
-        </a>
-      </header>
-    </div>
+    <>
+      <CommentInput />
+      <IaPrediction />
+    </>
   );
-};
-
-export default App;
+}
